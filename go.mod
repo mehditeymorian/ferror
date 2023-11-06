@@ -1,4 +1,4 @@
-module ferror
+module github.com/mehditeymorian/ferror
 
 go 1.20
 
