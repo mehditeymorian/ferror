@@ -8,7 +8,7 @@ Ferror</h1>
 </a>&nbsp;
 <img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" />
 
-<img src="https://img.shields.io/badge/Version-1.0.2-informational?style=for-the-badge&logo=none" alt="version" />
+<img src="https://img.shields.io/badge/Version-1.0.3-informational?style=for-the-badge&logo=none" alt="version" />
 </p>
 
 # Motivation
@@ -58,6 +58,9 @@ DevMode = false
   "message": "an abstract message of the error situation",
 }
 ```
+
+## Extra Fields
+By using the `ferror.Error()` you can pass an additional field, which is a basically a `map[string]any`. You can use the extra field to pass any other field you like.
 
 
 
