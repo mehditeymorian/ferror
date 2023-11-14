@@ -8,4 +8,5 @@ type Error struct {
 	FiberError *fiber.Error
 	Cause      error
 	Message    string
+	Extra      Extra
 }

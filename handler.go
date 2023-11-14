@@ -28,18 +28,28 @@ func (e *ErrorHandler) Error(ctx *fiber.Ctx, err Error) error {
 		e.onErrorHandling(ctx, err)
 	}
 
-	if e.devMode {
-		return ctx.Status(err.FiberError.Code).JSON(fiber.Map{
-			"status":  err.FiberError.Message,
-			"message": err.Message,
-			"error":   err.Cause.Error(),
-		})
-	}
-
-	return ctx.Status(err.FiberError.Code).JSON(fiber.Map{
+	data := fiber.Map{
 		"status":  err.FiberError.Message,
 		"message": err.Message,
-	})
+		"error":   err.Cause.Error(),
+	}
+
+	// add extra values if extra is valid
+	for key, value := range err.Extra {
+		if isKeyInvalid(key) {
+			continue
+		}
+		data[key] = value
+	}
+
+	if e.devMode {
+		return ctx.Status(err.FiberError.Code).JSON(data)
+	}
+
+	// no error in production environment!
+	delete(data, "error")
+
+	return ctx.Status(err.FiberError.Code).JSON(data)
 }
 
 func (e *ErrorHandler) BadRequest(ctx *fiber.Ctx, err error, message string) error {
